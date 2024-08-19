@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tenco.blog.board.repository.interfaces.BoardRepository">
+
+<insert id="insert">
+	INSERT INTO posts (title, content, writer)
+		VALUES ( #{title}, #{content}, #{writer})
+</insert>
+
+<update id="updateBoard" parameterType="com.tenco.blog.board.repository.interfaces.Model.Board">
+    UPDATE posts 
+    SET title = #{title}, content = #{content} 
+    WHERE id = #{id}
+</update>
+
+<delete id="deleteById">
+	DELETE FROM posts 
+	WHERE id = #{id};
+</delete>
+
+<select id="findAll">
+	SELECT id, title, writer, content, created_at 
+	FROM posts 
+	ORDER BY created_at ASC;
+</select>
+
+<select id="findById" parameterType="int" resultType="com.tenco.blog.board.repository.interfaces.Model.Board">
+    SELECT * FROM posts WHERE id = #{id}
+</select>
+
+
+</mapper>

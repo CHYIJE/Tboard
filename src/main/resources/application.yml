@@ -1,0 +1,53 @@
+server:
+  servlet:
+    encoding:
+      charset: utf-8
+      force: true
+    session:
+      timeout: 30m
+  port: 8080
+
+# JSP, mustache 원하는거 사용
+spring:
+  mvc:
+    view: 
+      prefix: /WEB-INF/view/ #JSP파일이 위치한 디렉토리 접두사를 설정합니다.
+      suffix: .jsp #뷰 이름에 자동으로 추가될 파일 확장자를 설정합니다.
+  datasource:
+    url: jdbc:mysql://localhost:3306/mybank?serverTimezone=Asia/Seoul
+    driver-class-name: com.mysql.cj.jdbc.Driver #드라이버 클래스를 설정 합니다.
+    username: root  #사용자 ID를 지정
+    password: asd123 #DB 비밀번호 여기서는 빈 문자열로 설정
+  sql:
+    init:
+      schema-locations:
+      - classpath:db/table.sql
+      data-locations:
+        - classpath:db/data.sql
+        
+  h2:
+    console:
+      enabled: true
+#  jpa:
+#    hibernate:
+#      ddl-auto: create
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        format_sql: true
+#    defer-datasource-initialization: true
+
+#mybatis 설정
+mybatis:
+  mapper-locations:
+    - classpath:mapper/**/*.xml  #MyBatis 매퍼 파일 위치를 설정합니다. **은 모든 디렉토리, *.xml 은 모든 XML 파일을 의미합니다.
+  configuration:
+    map-underscore-to-camel-case: true #데이터베이스의 언더스코어 네이밍(column_name)을 카멜 케이스(columnName)로 자동 매핑합니다.
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #SQL 로깅 구현체를 설정합니다.        
+
+logging:
+  level:
+    org.apache.ibatis: DEBUG #MyBatis 로깅 레벨을 DEBUG로 설정하여 실행되는 SQL 쿼리와 내부 로깅 정보를 콘솔에 출력합니다.
+
+    
+    
